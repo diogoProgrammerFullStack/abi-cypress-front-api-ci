@@ -1,0 +1,67 @@
+name: Cypress CI (UI + API)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Secrets -> Settings > Secrets and variables > Actions
+# USER_EMAIL / USER_PASSWORD
+env:
+  CYPRESS_USER_EMAIL: ${{ secrets.USER_EMAIL }}
+  CYPRESS_USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+
+jobs:
+  ui:
+    name: UI E2E
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - name: Run Cypress UI
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          spec: cypress/e2e/ui/**
+      - name: Upload artifacts (UI)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-ui-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
+          if-no-files-found: ignore
+
+  api:
+    name: API tests
+    runs-on: ubuntu-latest
+    needs: [ui] # remova se quiser rodar em paralelo
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - name: Run Cypress API
+        run: npx cypress run --spec "cypress/e2e/api/**"
+      - name: Upload artifacts (API)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-api-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
+          if-no-files-found: ignore

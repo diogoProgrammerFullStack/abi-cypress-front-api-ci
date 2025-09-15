@@ -1,0 +1,22 @@
+{
+  "name": "serverest-cypress",
+  "version": "1.0.0",
+  "private": true,
+  "description": "E2E (Frontend) + API tests for ServeRest with Cypress (JS).",
+  "scripts": {
+    "test": "cypress run",
+    "test:ui": "cypress run --spec cypress/e2e/ui/**",
+    "test:api": "cypress run --spec cypress/e2e/api/**",
+    "open": "cypress open",
+    "lint:format": "prettier --check .",
+    "lint:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.0.0",
+    "cypress": "^13.17.0",
+    "cypress-file-upload": "^5.0.8"
+  },
+  "dependencies": {
+    "faker": "^6.6.6"
+  }
+}

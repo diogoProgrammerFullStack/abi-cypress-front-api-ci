@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # ServeRest - Testes E2E com Cypress
 
 Este projeto contém testes automatizados de interface (E2E) e API para a aplicação ServeRest, desenvolvidos com Cypress em JavaScript.
@@ -143,7 +143,7 @@ npm install
 npx cypress run
 ```
 
-=======
+-- Dúvidas sobre como usar o CI (Actions), informações abaixo:
 Clicar em Actions no projeto
 <img width="781" height="189" alt="image" src="https://github.com/user-attachments/assets/9dbea2a7-63b2-4f0d-9f77-b6e4722a6b1c" />
 
@@ -153,5 +153,4 @@ Clicar no nome do Workflow (Cypress CI)
 Clicar em Run workflow e Run workflow na cor verde novamente
 <img width="1125" height="352" alt="image" src="https://github.com/user-attachments/assets/f5dae546-76d5-494b-b363-32fcde37ce6b" />
 
-E esperar rodar, pode abrir pra acompanhar os testes.
->>>>>>> fd6f7e8f80ec2c61eeec5c9428ba23ad8e3678bf
+E esperar rodar, pode abrir caso queira acompanhar os testes.
